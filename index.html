@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Miriam George | Reporting &amp; Data Analyst</title>
+<meta name="description" content="Miriam George, reporting and data analyst in Dubai. Data validation, reconciliation, records management and Excel and Power BI reporting.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F7F4;
+  --sheet:#FFFFFF;
+  --ink:#172033;
+  --ink-2:#5A6375;
+  --line:#E2E3DE;
+  --accent:#3D3BB8;
+  --accent-soft:#E9E8FB;
+  --ok:#1F7A55; --ok-soft:#E1F3EA;
+  --warn:#B4541C; --warn-soft:#FCEADD;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17.5px/1.6 "Source Sans 3",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:"Schibsted Grotesk",system-ui,sans-serif;margin:0;line-height:1.08;letter-spacing:-.015em}
+h2{font-size:clamp(30px,3.6vw,44px);font-weight:700;max-width:20ch}
+.lede{color:var(--ink-2);max-width:60ch;margin:14px 0 0}
+section{padding:92px 0;border-top:1px solid var(--line)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0;font-size:15.5px}
+.top b{font:700 19px "Schibsted Grotesk",system-ui,sans-serif}
+.top nav a{color:var(--ink);text-decoration:none;margin-left:22px}
+.top nav a:hover{color:var(--accent);text-decoration:underline}
+.hero{display:grid;grid-template-columns:1fr 1.05fr;gap:52px;align-items:center;padding:40px 0 96px}
+.hero>*{min-width:0}
+.hero h1{font-size:clamp(40px,5.2vw,68px);font-weight:800}
+.hero .intro{font-size:19.5px;color:var(--ink-2);max-width:46ch;margin:24px 0 32px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 22px;border-radius:8px;font-weight:600;text-decoration:none;border:2px solid var(--accent);font-size:16.5px}
+.btn.solid{background:var(--accent);color:#fff}
+.btn.solid:hover{background:var(--ink);border-color:var(--ink)}
+.btn.line{color:var(--accent)}
+.btn.line:hover{background:var(--accent-soft)}
+.recon{max-width:100%;background:var(--sheet);border:1px solid var(--line);border-radius:14px;box-shadow:0 26px 48px -32px rgba(23,32,51,.45);overflow:hidden;margin:0}
+.recon-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.recon-head h3{font-size:17px;font-weight:700}
+.recon-head p{margin:2px 0 0;font-size:13.5px;color:var(--ink-2)}
+.run{font:600 14.5px "Source Sans 3",system-ui,sans-serif;background:var(--accent);color:#fff;border:0;border-radius:7px;padding:9px 14px;cursor:pointer;white-space:nowrap}
+.run:hover{background:var(--ink)}
+.run[aria-pressed="true"]{background:var(--ok)}
+td.fixed{color:var(--ok);font-weight:600}
+td.flagged{color:var(--warn);font-weight:600}
+td.blank{color:#A0A6B2;font-style:italic}
+tr.gone{display:none}
+td{transition:color .3s}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:380px}
+th{text-align:left;font-weight:600;color:var(--ink-2);font-size:13px;padding:10px 14px;background:#FAFAF8;border-bottom:1px solid var(--line)}
+td{padding:10px 14px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+td.st{width:130px}
+.pill{display:inline-block;font-size:12.5px;font-weight:600;padding:2px 9px;border-radius:999px;background:#EEEFEA;color:var(--ink-2)}
+tr.done.ok .pill{background:var(--ok-soft);color:var(--ok)}
+tr.done.flag .pill{background:var(--warn-soft);color:var(--warn)}
+tr.done.flag td.diff{color:var(--warn);font-weight:600}
+tr.done{transition:background .4s}
+tr.done.flag{background:#FFFAF5}
+.recon-foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 12px;padding:12px 18px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2)}
+.recon-foot b{color:var(--ink)}
+.badge{font-size:12.5px;font-weight:600;color:var(--ink-2);background:#EEEFEA;border-radius:999px;padding:4px 10px}
+.snap-body{display:grid;grid-template-columns:.8fr 1.4fr;gap:0;border-bottom:1px solid var(--line)}
+.snap-col{padding:16px 18px;min-width:0}
+.snap-col+.snap-col{border-left:1px solid var(--line)}
+.step{display:inline-block;font-size:12.5px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:2px 8px;margin-bottom:10px}
+.kpi{margin-bottom:12px}
+.kpi b{display:block;font:700 26px "Schibsted Grotesk",system-ui,sans-serif}
+.kpi span{font-size:13.5px;color:var(--ink-2)}
+.ctitle2{margin:0 0 6px;font-size:13.5px;font-weight:600}
+.insight{padding:14px 18px;background:#FFFAF5}
+.insight p{margin:0;font-size:15px;color:var(--ink-2)}
+.insight b{color:var(--warn)}
+@media (max-width:560px){.snap-body{grid-template-columns:1fr}.snap-col+.snap-col{border-left:0;border-top:1px solid var(--line)}}
+.note{font-size:13px;color:var(--ink-2);margin:10px 2px 0}
+.caps{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:44px}
+.cap{background:var(--sheet);border:1px solid var(--line);border-radius:14px;padding:26px 26px 22px}
+.cap .area{font-size:14px;font-weight:600;color:var(--accent)}
+.cap h3{font-size:23px;font-weight:700;margin:8px 0 10px}
+.cap ul{margin:0;padding-left:20px;color:var(--ink-2)}
+.cap li{margin-bottom:7px;font-size:16px}
+.feature{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;margin-top:44px;background:var(--ink);color:#fff;border-radius:18px;padding:40px}
+.feature .tag{display:inline-block;font-size:13.5px;font-weight:600;color:#C9C8F7;margin-bottom:12px}
+.feature h3{font-size:30px;font-weight:700}
+.feature p{color:#C9CEDA;margin:14px 0 0}
+.feature ul{margin:18px 0 0;padding-left:20px;color:#E4E7EE}
+.feature li{margin-bottom:8px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}
+.metric{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:18px}
+.metric b{display:block;font:700 18px "Schibsted Grotesk",system-ui,sans-serif;color:#fff}
+.metric span{font-size:14.5px;color:#C9CEDA}
+.proj{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+.proj article{background:var(--sheet);border:1px solid var(--line);border-radius:14px;padding:24px}
+.proj h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.proj p{margin:0;font-size:15.5px;color:var(--ink-2)}
+.proj .fig{font:700 28px "Schibsted Grotesk",system-ui,sans-serif;color:var(--accent);margin-bottom:6px}
+.proj .used{margin-top:12px;font-size:14px;color:var(--ink)}
+.dash{border-radius:12px;padding:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:rgba(255,255,255,.06);border-radius:10px;padding:12px 14px}
+.tile span{display:block;font-size:13.5px;color:#C9CEDA}
+.tile b{font:700 24px "Schibsted Grotesk",system-ui,sans-serif;color:#fff}
+.chart-title{margin:16px 0 4px !important;font-size:14px;font-weight:600;color:#E4E7EE !important}
+.caption{font-size:12.5px !important;color:#9AA3B5 !important;margin:8px 0 0 !important}
+.chart{display:block;width:100%;height:auto;overflow:visible}
+.proj .chart{margin-bottom:12px}
+.proj .ctitle{font-size:13.5px;font-weight:600;color:var(--ink);margin:0 0 8px}
+.legend-row{display:flex;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--ink-2);margin:-4px 0 12px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.sw.gap{background:#fff;border:2px solid var(--warn)}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;font-size:13px;padding:6px 9px;border-radius:6px;opacity:0;transition:opacity .12s;z-index:10;white-space:nowrap}
+.tip.on{opacity:1}
+.xp{margin-top:44px;display:grid;gap:20px}
+.role{display:grid;grid-template-columns:220px 1fr;gap:32px;padding:28px 0;border-top:1px solid var(--line)}
+.role:first-child{border-top:0;padding-top:0}
+.role .when{font-weight:600;color:var(--accent)}
+.role .org{margin:6px 0 0;color:var(--ink-2);font-size:15.5px}
+.role h3{font-size:24px;font-weight:700}
+.role h4{font:600 16px "Source Sans 3",system-ui,sans-serif;margin:18px 0 6px;color:var(--accent)}
+.role ul{margin:12px 0 0;padding-left:20px}
+.role li{margin-bottom:7px;font-size:16px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.split h2{font-size:30px}
+.list{list-style:none;padding:0;margin:22px 0 0}
+.list li{padding:14px 0;border-top:1px solid var(--line)}
+.list b{display:block;font-weight:600}
+.list span{color:var(--ink-2);font-size:15.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chips span{background:var(--sheet);border:1px solid var(--line);border-radius:7px;padding:6px 12px;font-size:15px}
+.contact{background:var(--accent);color:#fff;border-radius:20px;padding:56px 48px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;margin:20px 0 40px}
+.contact h2{color:#fff;max-width:16ch}
+.contact p{color:#DCDBFA;margin:14px 0 0}
+.contact dl{margin:0;display:grid;gap:14px}
+.contact dt{font-size:13.5px;color:#C9C8F7}
+.contact dd{margin:2px 0 0;font-size:18px;font-weight:600}
+.contact a{color:#fff}
+footer{padding:0 0 40px;font-size:14px;color:var(--ink-2)}
+@media (max-width:960px){
+  .hero,.feature,.split,.contact{grid-template-columns:1fr}
+  .caps,.proj{grid-template-columns:1fr}
+  .role{grid-template-columns:1fr;gap:8px}
+  .top nav{display:none}
+  section{padding:64px 0}
+  .feature,.contact{padding:32px 22px}
+}
+@media (prefers-reduced-motion:reduce){tr.done{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <b>Miriam George</b>
+    <nav aria-label="Sections">
+      <a href="#capabilities">What I bring</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+  <div class="hero">
+    <div>
+      <h1>Reporting &amp; Data Analyst</h1>
+      <p class="intro">I'm a reporting and data analyst in Dubai, applying for Analyst – Group Human Resources. I validate and reconcile data across systems, keep records accurate and confidential, and turn raw exports into reports management can act on.</p>
+      <div class="btns">
+        <a class="btn solid" href="mailto:geomiriam@outlook.com?subject=Analyst%20-%20Group%20Human%20Resources">Email me</a>
+        <a class="btn line" href="#projects">See my analysis work</a>
+      </div>
+    </div>
+    <div>
+      <figure class="recon snap" aria-labelledby="snap-title">
+        <div class="recon-head">
+          <div>
+            <h3 id="snap-title">Monthly HR report: an example</h3>
+            <p>Data, reporting and analytics in one view</p>
+          </div>
+          <span class="badge">Illustrative</span>
+        </div>
+        <div class="snap-body">
+          <div class="snap-col">
+            <span class="step">Data</span>
+            <div class="kpi"><b>99.2%</b><span>records validated</span></div>
+            <div class="kpi"><b>14</b><span>discrepancies resolved</span></div>
+          </div>
+          <div class="snap-col wide">
+            <span class="step">Reporting</span>
+            <p class="ctitle2">Average leave balance by unit (days)</p>
+            <svg id="c-bu" class="chart" role="img" aria-label="Horizontal bar chart of average leave balance by unit, with Unit C at 14.6 days against a group average of 12.4 days"></svg>
+          </div>
+        </div>
+        <div class="insight">
+          <span class="step">Analytics</span>
+          <p><b>Unit C’s average leave balance is 18% above the group average.</b> Flagged to management so leave can be planned before peak season.</p>
+        </div>
+      </figure>
+      <p class="note">Illustrative data, showing how I'd approach a pure analyst role focused on Group HR data, reporting and analytics.</p>
+    </div>
+  </div>
+
+  <section id="capabilities">
+    <h2>What I'd bring to Group HR data</h2>
+    <p class="lede">A role focused on Group HR data, reporting and analytics needs accurate data first. This is the work I've been doing.</p>
+    <div class="caps">
+      <article class="cap">
+        <span class="area">Data integrity</span>
+        <h3>Validation and reconciliation</h3>
+        <ul>
+          <li>Regular data quality checks across Salesforce CRM, SharePoint and Excel</li>
+          <li>Reconciled supplier statements and three-way matched invoices in Oracle and SAP</li>
+          <li>Cleaned and standardised raw exports so figures matched across five countries</li>
+        </ul>
+      </article>
+      <article class="cap">
+        <span class="area">Reporting and insights</span>
+        <h3>Reports management can act on</h3>
+        <ul>
+          <li>Weekly, monthly and ad hoc reports for regional management</li>
+          <li>Excel trackers with pivot tables and formulas consolidating several sources</li>
+          <li>Power BI dashboards tracking KPIs and SLA adherence</li>
+        </ul>
+      </article>
+      <article class="cap">
+        <span class="area">Records and confidentiality</span>
+        <h3>Data handled with care</h3>
+        <ul>
+          <li>Built the team's SharePoint site and structured filing system from scratch</li>
+          <li>Role-based access in Power BI so each user saw only their own data</li>
+          <li>Records kept accurate and confidential to retention standards</li>
+        </ul>
+      </article>
+      <article class="cap">
+        <span class="area">Continuous improvement</span>
+        <h3>Less manual work, fewer errors</h3>
+        <ul>
+          <li>Power Automate flows linking Forms, Excel and SharePoint</li>
+          <li>Spotted recurring manual steps and proposed simpler workflows</li>
+          <li>Lean and Six Sigma coursework in my MBA</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Analysis I've done</h2>
+    <p class="lede">Each project shown as a dashboard mock-up. Real Emerson data stays confidential, so the figures are illustrative; the structure and findings are real.</p>
+    <div class="feature">
+      <div>
+        <span class="tag">MBA academic project, built on synthetic workforce data</span>
+        <h3>HR Operations &amp; Workforce Analytics</h3>
+        <p>An employee data management model covering employee records, attendance and leave, built to practise the reporting an HR data team runs every month.</p>
+        <ul>
+          <li>Analysed headcount, attendance trends, leave utilisation and employee movement</li>
+          <li>Designed Power BI dashboards for HR operational KPIs</li>
+          <li>Applied validation and reconciliation to flag missing information, duplicates and inconsistencies</li>
+          <li>Presented recommendations to improve HR reporting accuracy</li>
+        </ul>
+      </div>
+      <div class="dash dark" aria-label="Illustrative dashboard for the HR workforce analytics project">
+        <div class="tiles">
+          <div class="tile"><span>Headcount</span><b>1,248</b></div>
+          <div class="tile"><span>Attendance</span><b>96.4%</b></div>
+          <div class="tile"><span>Leave used</span><b>41%</b></div>
+          <div class="tile"><span>Records flagged</span><b>37</b></div>
+        </div>
+        <p class="chart-title">Headcount by month</p>
+        <svg id="c-head" class="chart" role="img" aria-label="Line chart of headcount rising from 1,180 in January to 1,248 in June"></svg>
+        <p class="caption">Mock-up based on the project's synthetic data. Figures are illustrative.</p>
+      </div>
+    </div>
+    <div class="proj">
+      <article>
+        <p class="ctitle">Proficiency: 25 technicians × 21 skills</p><svg id="c-skill" class="chart" role="img" aria-label="Heatmap of 25 technicians by 21 skills, with three skill columns at zero proficiency"></svg><div class="legend-row"><span><i class="sw" style="background:#E9E8FB"></i>None</span><span><i class="sw" style="background:#3D3BB8"></i>Expert</span><span><i class="sw gap"></i>Zero-proficiency gap</span></div><div class="fig">25 × 21</div>
+        <h3>Technician Skills Gap Analysis</h3>
+        <p>Compared proficiency for 25 technicians across 21 skills in Excel and found zero-proficiency gaps in ODV, Hydraulic and Electric Actuators, giving management evidence for training decisions.</p>
+        <p class="used">Excel</p>
+      </article>
+      <article>
+        <p class="ctitle">Reports billed by site</p><svg id="c-oqgn" class="chart" role="img" aria-label="Bar chart of reports completed across 11 sites"></svg><div class="fig">11 sites</div>
+        <h3>OQGN Report &amp; Billing Tracker</h3>
+        <p>FY26 reporting and billing tracker across 11 Oman sites, with role-based access so each user sees only their own data.</p>
+        <p class="used">Power BI, Excel</p>
+      </article>
+      <article>
+        <p class="ctitle">Training registrations by country</p><svg id="c-asp" class="chart" role="img" aria-label="Stacked bars of completed and pending registrations across five countries"></svg><div class="legend-row"><span><i class="sw" style="background:#3D3BB8"></i>Completed</span><span><i class="sw" style="background:#2A9D8F"></i>Pending</span></div><div class="fig">5 countries</div>
+        <h3>ASP Training Live Status Dashboard</h3>
+        <p>A live tracker of training registrations and records across five MEA countries, replacing manual status chasing.</p>
+        <p class="used">Forms, SharePoint, Power Automate, Power BI</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="xp">
+      <article class="role">
+        <div><div class="when">Aug 2025 to Jul 2026</div><p class="org">Emerson, Lifecycle Services MEA (Flow Control), Dubai</p></div>
+        <div>
+          <h3>Education Services Coordinator, Operations &amp; Planning</h3>
+          <ul>
+            <li>Generated, validated and maintained the data files behind regional reporting across five MEA countries.</li>
+            <li>Produced workforce utilisation reporting to help management plan resources.</li>
+            <li>Cleaned and standardised CRM, Forms and SharePoint exports before reporting.</li>
+            <li>Created the team's SharePoint site with a structured filing system for records.</li>
+            <li>First point of contact for data and reporting inquiries, resolved within SLA.</li>
+          </ul>
+          <h4>Procurement Officer (cover)</h4>
+          <ul><li>Reconciled supplier statements and three-way matched invoices, POs and delivery notes in Oracle and SAP.</li></ul>
+        </div>
+      </article>
+      <article class="role">
+        <div><div class="when">Mar 2025 to Aug 2025</div><p class="org">Digitizer Marketing Management, Dubai</p></div>
+        <div>
+          <h3>Sales &amp; Marketing Coordinator, Administrative &amp; Reporting Support</h3>
+          <ul>
+            <li>Maintained business records and CRM information for accurate pipeline tracking.</li>
+            <li>Prepared Excel reports and KPI summaries for management.</li>
+            <li>Supported reporting improvements to make information easier to access.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="split">
+      <div>
+        <h2>Education</h2>
+        <ul class="list">
+          <li><b>Master of Business Administration (MBA) in International Business, with focus on Service Operations and Marketing Management</b><span>Manipal Academy of Higher Education, Dubai, 2025. Exchange semester at MILA University, Malaysia. Coursework in Lean, Six Sigma and Financial Reporting.</span></li>
+          <li><b>Bachelor of Business Administration (BBA) in International Business and Economics</b><span>Madonna University, 2022</span></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Tools and languages</h2>
+        <div class="chips">
+          <span>Excel</span><span>Pivot tables</span><span>Power Query</span><span>Power BI</span><span>Power Automate</span><span>SharePoint</span><span>Microsoft Forms</span><span>SQL (intermediate)</span><span>Oracle</span><span>SAP</span><span>Salesforce CRM</span>
+        </div>
+        <ul class="list">
+          <li><b>Certifications</b><span>Google Data Analytics Professional Certificate. One Million Prompters, Dubai Future Foundation.</span></li>
+          <li><b>Languages</b><span>English (professional), Hindi (intermediate), Arabic and French (beginner)</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="contact" id="contact">
+    <div>
+      <h2>Get in touch</h2>
+      <p>I'm based in Dubai and available to start immediately.</p>
+    </div>
+    <dl>
+      <div><dt>Email</dt><dd><a href="mailto:geomiriam@outlook.com">geomiriam@outlook.com</a></dd></div>
+      <div><dt>Phone</dt><dd><a href="tel:+971509382156">+971 50 938 2156</a></dd></div>
+      <div><dt>Location</dt><dd>Dubai, UAE</dd></div>
+    </dl>
+  </div>
+  </main>
+
+  <footer>Miriam George, 2026</footer>
+</div>
+<script>
+/* charts */
+const NS='http://www.w3.org/2000/svg',IND='#3D3BB8',TEAL='#2A9D8F';
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
+const tip=document.createElement('div');tip.className='tip';document.body.appendChild(tip);
+const hover=(node,text)=>{node.addEventListener('mouseenter',()=>{tip.textContent=text;tip.classList.add('on')});node.addEventListener('mousemove',e=>{tip.style.left=(e.clientX+12)+'px';tip.style.top=(e.clientY-34)+'px'});node.addEventListener('mouseleave',()=>tip.classList.remove('on'))};
+
+/* 1. headcount line (dark panel) */
+(()=>{const s=document.getElementById('c-head'),W=320,H=140,p={l:34,r:10,t:10,b:22};s.setAttribute('viewBox',`0 0 ${W} ${H}`);
+const m=['Jan','Feb','Mar','Apr','May','Jun'],v=[1180,1196,1205,1221,1236,1248],lo=1160,hi=1260;
+const x=i=>p.l+i*(W-p.l-p.r)/(m.length-1),y=d=>p.t+(hi-d)/(hi-lo)*(H-p.t-p.b);
+[1180,1220,1260].forEach(g=>{el('line',{x1:p.l,x2:W-p.r,y1:y(g),y2:y(g),stroke:'rgba(255,255,255,.12)'},s);el('text',{x:p.l-6,y:y(g)+4,'text-anchor':'end','font-size':10,fill:'#9AA3B5'},s).textContent=g.toLocaleString()});
+m.forEach((t,i)=>el('text',{x:x(i),y:H-6,'text-anchor':'middle','font-size':10,fill:'#9AA3B5'},s).textContent=t);
+el('path',{d:v.map((d,i)=>(i?'L':'M')+x(i)+' '+y(d)).join(''),fill:'none',stroke:'#A9A8F5','stroke-width':2,'stroke-linejoin':'round'},s);
+v.forEach((d,i)=>{el('circle',{cx:x(i),cy:y(d),r:4,fill:'#A9A8F5',stroke:'#172033','stroke-width':2},s);const h=el('rect',{x:x(i)-14,y:p.t,width:28,height:H-p.t-p.b,fill:'transparent'},s);hover(h,`${m[i]}: ${d.toLocaleString()} employees`)});
+})();
+
+/* 2. skills heatmap 25 x 21 */
+(()=>{const s=document.getElementById('c-skill'),R=25,C=21,cs=13,ch=6,g=2,W=C*(cs+g),H=R*(ch+g);s.setAttribute('viewBox',`0 0 ${W} ${H+14}`);
+const ramp=['#E9E8FB','#B8B6F0','#7C7AD8',IND],gaps={6:'ODV',12:'Hydraulic Actuators',17:'Electric Actuators'};
+let seed=7;const rnd=()=>(seed=(seed*9301+49297)%233280)/233280;
+for(let r=0;r<R;r++)for(let c=0;c<C;c++){const lvl=gaps[c]?0:Math.min(3,Math.floor(rnd()*4.2));
+ const cell=el('rect',{x:c*(cs+g),y:r*(ch+g),width:cs,height:ch,rx:1.5,fill:ramp[lvl]},s);
+ hover(cell,`Technician ${r+1}, ${gaps[c]||'Skill '+(c+1)}: ${['none','basic','proficient','expert'][lvl]}`)}
+Object.keys(gaps).forEach(c=>{el('rect',{x:c*(cs+g)-1.5,y:-1.5,width:cs+3,height:H+1,rx:3,fill:'none',stroke:'#B4541C','stroke-width':2},s);el('text',{x:c*(cs+g)+cs/2,y:H+12,'text-anchor':'middle','font-size':10,'font-weight':600,fill:'#B4541C'},s).textContent='▲'});
+})();
+
+/* 3. OQGN 11 sites, single series */
+(()=>{const s=document.getElementById('c-oqgn'),W=320,H=150,p={l:26,r:4,t:8,b:20};s.setAttribute('viewBox',`0 0 ${W} ${H}`);
+const v=[12,9,14,11,8,13,10,12,7,11,9],mx=15,n=v.length,bw=(W-p.l-p.r)/n;
+const y=d=>p.t+(mx-d)/mx*(H-p.t-p.b);
+[0,5,10,15].forEach(gv=>{el('line',{x1:p.l,x2:W-p.r,y1:y(gv),y2:y(gv),stroke:'#E2E3DE'},s);el('text',{x:p.l-5,y:y(gv)+4,'text-anchor':'end','font-size':10,fill:'#5A6375'},s).textContent=gv});
+v.forEach((d,i)=>{const bx=p.l+i*bw+2,w=bw-4,top=y(d),base=y(0);
+ el('path',{d:`M${bx} ${base}V${top+4}Q${bx} ${top} ${bx+4} ${top}H${bx+w-4}Q${bx+w} ${top} ${bx+w} ${top+4}V${base}Z`,fill:IND},s);
+ el('text',{x:bx+w/2,y:H-6,'text-anchor':'middle','font-size':10,fill:'#5A6375'},s).textContent=i+1;
+ hover(el('rect',{x:p.l+i*bw,y:p.t,width:bw,height:H-p.t-p.b,fill:'transparent'},s),`Site ${i+1}: ${d} reports billed`)});
+})();
+
+/* 4. ASP 5 countries, completed vs pending */
+(()=>{const s=document.getElementById('c-asp'),W=320,H=150,p={l:74,r:30,t:4,b:4};s.setAttribute('viewBox',`0 0 ${W} ${H}`);
+const d=[['Country 1',42,6],['Country 2',35,9],['Country 3',28,4],['Country 4',22,7],['Country 5',18,3]],mx=50,rh=(H-p.t-p.b)/d.length,x=v=>v/mx*(W-p.l-p.r);
+d.forEach(([n,c,q],i)=>{const yy=p.t+i*rh+5,h=rh-10;
+ el('text',{x:p.l-8,y:yy+h/2+4,'text-anchor':'end','font-size':11,fill:'#5A6375'},s).textContent=n;
+ const a=el('rect',{x:p.l,y:yy,width:x(c),height:h,rx:3,fill:IND},s);hover(a,`${n}: ${c} completed`);
+ const b=el('rect',{x:p.l+x(c)+2,y:yy,width:x(q)-2,height:h,rx:3,fill:TEAL},s);hover(b,`${n}: ${q} pending`);
+ el('text',{x:p.l+x(c+q)+5,y:yy+h/2+4,'font-size':11,fill:'#172033'},s).textContent=c+q});
+})();
+
+(()=>{const s=document.getElementById('c-bu'),W=300,H=168,p={l:46,r:36,t:2,b:22};s.setAttribute('viewBox',`0 0 ${W} ${H}`);
+const d=[['Unit A',11.2],['Unit B',12.0],['Unit C',14.6],['Unit D',11.8],['Unit E',12.3]],avg=12.4,mx=16,rh=(H-p.t-p.b)/d.length,x=v=>v/mx*(W-p.l-p.r);
+d.forEach(([n,v],i)=>{const yy=p.t+i*rh+5,h=rh-10;
+ el('text',{x:p.l-8,y:yy+h/2+4,'text-anchor':'end','font-size':11,fill:'#5A6375'},s).textContent=n;
+ const r=el('rect',{x:p.l,y:yy,width:x(v),height:h,rx:3,fill:i===2?'#B4541C':IND},s);hover(r,`${n}: ${v} days average leave balance`);
+ el('text',{x:W-2,y:yy+h/2+4,'text-anchor':'end','font-size':11,'font-weight':i===2?700:400,fill:'#172033'},s).textContent=v.toFixed(1)});
+const ax=p.l+x(avg);
+el('line',{x1:ax,x2:ax,y1:p.t,y2:H-p.b+2,stroke:'#172033','stroke-width':1.5,'stroke-dasharray':'4 3'},s);
+el('text',{x:ax,y:H-6,'text-anchor':'middle','font-size':10.5,'font-weight':600,fill:'#172033'},s).textContent='Group average 12.4';
+})();
+</script>
+</body>
+</html>
